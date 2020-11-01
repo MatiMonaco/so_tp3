@@ -85,7 +85,7 @@ static void play(int socket)
         printf("%s\n\n\n\n", currChall->msg);
 
         expectedAns = currChall->answer;
-
+        solved = 0;
         while (solved == 0)
         {
 
