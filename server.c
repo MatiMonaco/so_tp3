@@ -107,7 +107,7 @@ static void checkAnswer(char *msg, char *expectedAnswer)
             perror("read");
             exit(EXIT_FAILURE);
         }
-        printf("answer = %s\nexpected = %s\n", answer, expectedAnswer);
+
         if (!strcmp(answer, expectedAnswer))
         {
 
@@ -182,6 +182,7 @@ static void challenge8()
 {
     clear();
     char msg[248];
+    printf("hola\n");
     sprintf(msg, "--------------- DESAFIO ---------------\n%s %s %s\n\n----- PREGUNTA PARA INVESTIGAR -----\n¿Cómo se puede implementar un servidor que atienda muchas conexiones sin usar procesos ni threads?\n", ANSI_COLOR_BLACK, answers[7], ANSI_COLOR_RESET);
     checkAnswer(msg, answers[7]);
 }
