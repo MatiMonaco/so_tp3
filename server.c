@@ -181,8 +181,8 @@ static void challenge7()
 static void challenge8()
 {
     clear();
-    char msg[248];
-    printf("hola\n");
+    char msg[248] = {0};
+
     sprintf(msg, "--------------- DESAFIO ---------------\n%s %s %s\n\n----- PREGUNTA PARA INVESTIGAR -----\n¿Cómo se puede implementar un servidor que atienda muchas conexiones sin usar procesos ni threads?\n", ANSI_COLOR_BLACK, answers[7], ANSI_COLOR_RESET);
     checkAnswer(msg, answers[7]);
 }
