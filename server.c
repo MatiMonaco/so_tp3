@@ -10,12 +10,12 @@
 #define PORT 8080
 #define TOTAL_CHALLENGES 10
 #define ANSI_COLOR_BLACK "\x1b[30m"
+#define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_COLOR_RESET "\x1b[0m"
 static void checkAnswer(char *msg, char *expectedAnswer);
 
 static void clear();
 static void play();
-
 static void initSocket();
 static void challenge1();
 static void challenge2();
@@ -96,12 +96,12 @@ static void play()
 
 static void checkAnswer(char *msg, char *expectedAnswer)
 {
-    char answer[1024] = {0};
+    char answer[248] = {0};
     int done = 0;
     int valread;
     while (!done)
     {
-        valread = read(my_socket, answer, 1024);
+        valread = read(my_socket, answer, 248);
         if (valread < 0)
         {
             perror("read");
@@ -194,4 +194,71 @@ static void challenge9()
     puts(msg);
     checkAnswer(msg, answers[8]);
 }
-static void challenge10() {}
+static void challenge10()
+{
+
+    int done = 0;
+    int valread;
+    char answer[248] = {0};
+    int gcc = 1, diff = 1;
+
+    char *msg_start = "--------------- DESAFIO ---------------\nquine";
+    while (!done)
+    {
+        while (gcc)
+        {
+            clear();
+            puts(msg_start);
+            gcc = system("gcc -Wall quine.c -o quine");
+            if (gcc == 0)
+            {
+
+                puts("¡Genial!, ya lograron meter un programa en quine.c, veamos si hace lo que corresponde.\n");
+
+                diff = system("./quine | diff ./quine.c -");
+
+                if (diff == 0)
+                {
+                    char *msg = "La respuesta es chin_chu_lan_cha\n\n----- PREGUNTA PARA INVESTIGAR -----\n¿Cuáles son las características del protocolo SCTP?\n";
+                    puts(msg);
+                    checkAnswer(msg, answers[9]);
+                    done = 1;
+                }
+                else
+                {
+                    char *errorMsg = "\ndiff encontró diferencias.\nENTER para reintentar\n\n----- PREGUNTA PARA INVESTIGAR -----\n¿Cuáles son las características del protocolo SCTP?\n";
+                    puts(errorMsg);
+
+                    valread = read(my_socket, answer, 248);
+                    if (valread < 0)
+                    {
+                        perror("read");
+                        exit(EXIT_FAILURE);
+                    }
+                    if (strcmp(answer, "\n"))
+                    {
+                        printf("Respuesta incorrecta: %s\n", answer);
+                        sleep(2);
+                    }
+                }
+            }
+            else
+            {
+                char *errorMsg = "\nENTER para reintentar\n\n----- PREGUNTA PARA INVESTIGAR -----\n¿Cuáles son las características del protocolo SCTP?\n";
+                puts(errorMsg);
+
+                valread = read(my_socket, answer, 248);
+                if (valread < 0)
+                {
+                    perror("read");
+                    exit(EXIT_FAILURE);
+                }
+                if (strcmp(answer, "\n"))
+                {
+                    printf("Respuesta incorrecta: %s\n", answer);
+                    sleep(2);
+                }
+            }
+        }
+    }
+}
