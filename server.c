@@ -163,7 +163,7 @@ static void challenge4()
 static void challenge5()
 {
     clear();
-    char *msg = "--------------- DESAFIO ---------------\nrespuesta = strings:277\n\n----- PREGUNTA PARA INVESTIGAR -----\n¿Cómo garantiza TCP que los paquetes llegan en orden y no se pierden?\n";
+    char *msg = "--------------- DESAFIO ---------------\nrespuesta = strings:32\n\n----- PREGUNTA PARA INVESTIGAR -----\n¿Cómo garantiza TCP que los paquetes llegan en orden y no se pierden?\n";
     puts(msg);
     checkAnswer(msg, answers[4]);
 }
@@ -279,7 +279,7 @@ static void challenge12()
 void gdbme()
 {
     int this_is_true = 0;
-    if(this_is_true == 0)
+    if (this_is_true == 0)
     {
         printf("ENTER para reintentar.\n");
     }
